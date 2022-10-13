@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Metro 2033",
+    "author": "Dmitry Glukhovsky",
+    "genre": "Post-apocalyptic",
+    "publication_year": 2005,
+    "price": 14.99,
+    "imgUrl": "/images/metro2033.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Metro 2034",
+    "author": "Dmitry Glukhovsky",
+    "genre": "Post-apocalyptic",
+    "publication_year": 2009,
+    "price": 16.99,
+    "imgUrl": "/images/metro2034.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Metro 2035",
+    "author": "Dmitry Glukhovsky",
+    "genre": "Post-apocalyptic",
+    "publication_year": 2015,
+    "price": 18.99,
+    "imgUrl": "/images/metro2035.jpg"
+  },
+  {
+    "id": 4,
+    "name": "2001: A Space Odyssey",
+    "author": "Arthur C. Clarke",
+    "genre": "Science fiction",
+    "publication_year": 1968,
+    "price": 14.99,
+    "imgUrl": "/images/2001space_odyssey.jpg"
+  }
+]
