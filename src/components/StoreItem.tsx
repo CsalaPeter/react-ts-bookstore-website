@@ -1,4 +1,6 @@
 import "../styles/components/storeItem.css";
+import { formatCurrency } from "../utilities/formatCurrency";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 type StoreItemProps = {
   id: number;
@@ -19,18 +21,33 @@ export function StoreItem({
   price,
   imgUrl,
 }: StoreItemProps) {
+  const { getItemQuantity, increaseItemQuantity, removeFromCart } =
+    useShoppingCart();
+  let quantity = getItemQuantity(id);
+
   return (
-    <div className="card">
-      <div className="image">
+    <div className="bookCard">
+      <div className="coverImage">
         <img src={imgUrl} />
       </div>
       <div className="body">
-        <h3>{name}</h3>
-        <h4>{author}</h4>
+        <h3 className="bookName">{name}</h3>
+        <h4 className="bookAuthor">{author}</h4>
       </div>
       <div className="footer">
-        <button>Add to cart</button>
-        <span className="price">{price}$</span>
+        {quantity === 0 ? (
+          <button
+            className="cardButton"
+            onClick={() => increaseItemQuantity(id)}
+          >
+            Add to cart
+          </button>
+        ) : (
+          <button className="cardButton" onClick={() => removeFromCart(id)}>
+            Remove
+          </button>
+        )}
+        <span className="price">{formatCurrency(price)}</span>
       </div>
     </div>
   );

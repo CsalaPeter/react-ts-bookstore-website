@@ -1,0 +1,47 @@
+.cartItemImg {
+  width: 100px;
+  height: 160px;
+  object-fit: cover;
+}
+
+#price {
+  font-size: 0.85rem;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+}
+
+.itemQuant {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  background-color: darkblue;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.quantity {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}

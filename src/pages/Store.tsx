@@ -5,7 +5,6 @@ import "../styles/pages/store.css";
 export function Store() {
   return (
     <>
-      <h1>Store</h1>
       <div className="items">
         {books.map((book) => (
           <div key={book.id}>

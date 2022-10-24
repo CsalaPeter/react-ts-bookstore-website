@@ -1,10 +1,11 @@
-.card {
+.bookCard {
   width: 300px;
   height: 500px;
-  background-color: antiquewhite;
+  box-shadow: 5px 5px 10px black;
+  position: relative;
 }
 
-.image {
+.coverImage {
   display: flex;
   justify-content: center;
   padding-top: 15px;
@@ -15,28 +16,38 @@
 }
 
 .footer {
+  position: absolute;
+  bottom: 0px;
   width: 300px;
+  margin-bottom: 5px;
 }
 
 .price {
   position: relative;
-  left: 160px;
+  left: 110px;
 }
 
-button {
+.cardButton {
   position: relative;
-  left: 115px;
+  left: 90px;
+  width: 120px;
+  border: none;
+  background-color: darkblue;
+  color: white;
+  border-radius: 20px;
+  margin-block: 2px;
+  padding: 3px;
 }
 
 img {
   height: 350px;
 }
 
-h3 {
+.bookName {
   margin-bottom: 0px;
 }
 
-h4 {
+.bookAuthor {
   margin-top: 5px;
   font-size: 0.9rem;
 }
