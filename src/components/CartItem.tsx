@@ -1,8 +1,8 @@
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import { formatCurrency } from "../utilities/formatCurrency";
 import { Button, Stack } from "react-bootstrap";
 import storeItems from "../data/books.json";
 import "../styles/components/cartItem.css";
+import { useCurrency } from "../context/CurrencyTypeContext";
 
 type CartItemProps = {
   id: number;
@@ -10,6 +10,7 @@ type CartItemProps = {
 };
 
 export function CartItem({ id, quantity }: CartItemProps) {
+  const { currencyType, multiplier } = useCurrency();
   const { removeFromCart, decreaseItemQuantity, increaseItemQuantity } =
     useShoppingCart();
   const item = storeItems.find((i) => i.id === id);
@@ -21,7 +22,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
       <div className="me-auto">
         <div>{item.name} </div>
         <div id="price" className="text-muted">
-          {formatCurrency(item.price)}
+          {currencyType.format(item.price * multiplier)}
         </div>
         <button onClick={() => increaseItemQuantity(id)} className="itemQuant">
           <i className="arrow up"></i>
@@ -33,7 +34,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
           <i className="arrow down"></i>
         </button>
       </div>
-      <div> {formatCurrency(item.price * quantity)}</div>
+      <div> {currencyType.format(item.price * quantity * multiplier)}</div>
       <Button
         variant="outline-danger"
         size="sm"

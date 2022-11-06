@@ -1,10 +1,21 @@
-import { Button, Container, Nav, Navbar as NavbarBs } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Dropdown,
+  Nav,
+  Navbar as NavbarBs,
+} from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { NavLink } from "react-router-dom";
 import "../styles/components/navbar.css";
+import { useCurrency } from "../context/CurrencyTypeContext";
 
 export function Navbar() {
   const { openCart, cartQuantity } = useShoppingCart();
+  const { currencyType, setCurrencyType } = useCurrency();
+  const handleSelect = (e: any) => {
+    setCurrencyType(e);
+  };
   return (
     <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
       <Container>
@@ -16,6 +27,16 @@ export function Navbar() {
             Store
           </Nav.Link>
         </Nav>
+        <Dropdown className="dropdown" onSelect={handleSelect}>
+          <Dropdown.Toggle id="dropdown-basic">
+            Currency | {currencyType.resolvedOptions().currency}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item eventKey="EUR">EUR</Dropdown.Item>
+            <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
+            <Dropdown.Item eventKey="HUF">HUF</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <Button
           id="cartButton"
           onClick={openCart}

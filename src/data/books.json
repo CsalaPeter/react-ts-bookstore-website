@@ -34,5 +34,77 @@
     "publication_year": 1968,
     "price": 14.99,
     "imgUrl": "/images/2001space_odyssey.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Ghost Eaters: A Novel",
+    "author": "Clay Chapman",
+    "genre": "Horror",
+    "publication_year": 2022,
+    "price": 20.33,
+    "imgUrl": "/images/ghost_eaters.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Why We Fight: The Roots of War and the Paths to Peace",
+    "author": "Chris Blattman",
+    "genre": "History",
+    "publication_year": 2022,
+    "price": 20.23,
+    "imgUrl": "/images/why_we_fight.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Bioshock - Rapture",
+    "author": "Jhon Shirley",
+    "genre": "Science fiction",
+    "publication_year": 2011,
+    "price": 12.61,
+    "imgUrl": "/images/bioshock_rapture.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Haunting Adeline",
+    "author": "H. D. Carlton",
+    "genre": "Thriller",
+    "publication_year": 2021,
+    "price": 23.19,
+    "imgUrl": "/images/haunting_adeline.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Under the Dome",
+    "author": "Stephen King",
+    "genre": "Science fiction",
+    "publication_year": 2009,
+    "price": 14.84,
+    "imgUrl": "/images/under_the_dome.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Hallow",
+    "author": "Celina Myers",
+    "genre": "Horror",
+    "publication_year": 2019,
+    "price": 25.78,
+    "imgUrl": "/images/hallow.jpg"
+  },
+  {
+    "id": 11,
+    "name": "The Big Red One",
+    "author": "Samuel Fuller",
+    "genre": "Historical Fiction",
+    "publication_year": 1980,
+    "price": 24.73,
+    "imgUrl": "/images/big_red_one.jpg"
+  },
+  {
+    "id": 12,
+    "name": "The Butcher and The Wren: A Novel",
+    "author": "Alaina Urquhart",
+    "genre": "Thriller",
+    "publication_year": 2022,
+    "price": 17.86,
+    "imgUrl": "/images/the_butcher_and_the_wren.jpg"
   }
 ]

@@ -1,6 +1,6 @@
 import "../styles/components/storeItem.css";
-import { formatCurrency } from "../utilities/formatCurrency";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useCurrency } from "../context/CurrencyTypeContext";
 
 type StoreItemProps = {
   id: number;
@@ -24,6 +24,7 @@ export function StoreItem({
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
   let quantity = getItemQuantity(id);
+  const { currencyType, multiplier } = useCurrency();
 
   return (
     <div className="bookCard">
@@ -35,6 +36,7 @@ export function StoreItem({
         <h4 className="bookAuthor">{author}</h4>
       </div>
       <div className="footer">
+        <div className="price">{currencyType.format(price * multiplier)}</div>
         {quantity === 0 ? (
           <button
             className="cardButton"
@@ -47,7 +49,6 @@ export function StoreItem({
             Remove
           </button>
         )}
-        <span className="price">{formatCurrency(price)}</span>
       </div>
     </div>
   );

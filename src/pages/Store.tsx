@@ -2,6 +2,10 @@ import { StoreItem } from "../components/StoreItem";
 import books from "../data/books.json";
 import "../styles/pages/store.css";
 
+interface Props {
+  currencyType: Intl.NumberFormat;
+}
+
 export function Store() {
   return (
     <>

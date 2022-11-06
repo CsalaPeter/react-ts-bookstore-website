@@ -17,3 +17,7 @@
   align-items: center;
   transform: translate(25%, 25%);
 }
+
+.dropdown {
+  margin-inline: 50px;
+}
