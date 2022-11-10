@@ -34,7 +34,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
           <i className="arrow down"></i>
         </button>
       </div>
-      <div> {currencyType.format(item.price * quantity * multiplier)}</div>
+      <div>{currencyType.format(item.price * quantity * multiplier)}</div>
       <Button
         variant="outline-danger"
         size="sm"

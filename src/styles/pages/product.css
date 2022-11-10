@@ -1,0 +1,32 @@
+.productDet {
+  margin-top: 50px;
+}
+
+.left {
+  width: 20% !important;
+}
+
+.info {
+  padding-block: 20px;
+  font-size: 0.9rem;
+}
+
+.info div {
+  padding-block: 3px;
+}
+
+hr {
+  border-top: solid;
+}
+
+.prodButton {
+  position: relative;
+  left: 45px;
+  width: 150px;
+  border: none;
+  background-color: darkblue;
+  color: white;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 4px;
+}

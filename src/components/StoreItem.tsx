@@ -1,25 +1,32 @@
 import "../styles/components/storeItem.css";
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useCurrency } from "../context/CurrencyTypeContext";
+import { Link } from "react-router-dom";
 
 type StoreItemProps = {
   id: number;
   name: string;
   author: string;
-  genre: string;
+  publisher: string;
+  genre: [string];
   publication_year: number;
   price: number;
   imgUrl: string;
+  pages: number;
+  description: [string];
 };
 
 export function StoreItem({
   id,
   name,
   author,
+  publisher,
   genre,
   publication_year,
   price,
   imgUrl,
+  pages,
+  description,
 }: StoreItemProps) {
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
@@ -28,9 +35,25 @@ export function StoreItem({
 
   return (
     <div className="bookCard">
-      <div className="coverImage">
-        <img src={imgUrl} />
-      </div>
+      <Link
+        to="/product"
+        state={{
+          id,
+          name,
+          author,
+          publisher,
+          genre,
+          publication_year,
+          price,
+          imgUrl,
+          pages,
+          description,
+        }}
+      >
+        <div className="coverImage">
+          <img src={imgUrl} />
+        </div>
+      </Link>
       <div className="body">
         <h3 className="bookName">{name}</h3>
         <h4 className="bookAuthor">{author}</h4>
