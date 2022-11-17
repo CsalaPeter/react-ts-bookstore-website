@@ -1,8 +1,9 @@
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import { Button, Stack } from "react-bootstrap";
-import storeItems from "../data/books.json";
-import "../styles/components/cartItem.css";
 import { useCurrency } from "../context/CurrencyTypeContext";
+import { StoreItemProps } from "./StoreItem";
+import { Button, Stack } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import "../styles/components/cartItem.css";
 
 type CartItemProps = {
   id: number;
@@ -11,9 +12,17 @@ type CartItemProps = {
 
 export function CartItem({ id, quantity }: CartItemProps) {
   const { currencyType, multiplier } = useCurrency();
+  const [booksData, setBooks] = useState<StoreItemProps[]>([]);
   const { removeFromCart, decreaseItemQuantity, increaseItemQuantity } =
     useShoppingCart();
-  const item = storeItems.find((i) => i.id === id);
+
+  useEffect(() => {
+    fetch("/api/store")
+      .then((response) => response.json())
+      .then((data) => setBooks(data));
+  }, []);
+
+  const item = booksData.find((i) => i.id === id);
   if (item == null) return null;
 
   return (

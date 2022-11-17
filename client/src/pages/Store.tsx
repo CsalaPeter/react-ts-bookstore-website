@@ -1,16 +1,21 @@
+import { StoreItemProps } from "../components/StoreItem";
 import { StoreItem } from "../components/StoreItem";
-import books from "../data/books.json";
+import { useEffect, useState } from "react";
 import "../styles/pages/store.css";
 
-interface Props {
-  currencyType: Intl.NumberFormat;
-}
-
 export function Store() {
+  const [booksData, setBooks] = useState<StoreItemProps[]>([]);
+
+  useEffect(() => {
+    fetch("/api/store")
+      .then((response) => response.json())
+      .then((data) => setBooks(data));
+  }, []);
+
   return (
     <>
       <div className="items">
-        {books.map((book) => (
+        {booksData.map((book) => (
           <div key={book.id}>
             <StoreItem {...book} />
           </div>

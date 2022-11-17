@@ -1,8 +1,9 @@
-import { Offcanvas, Stack } from "react-bootstrap";
 import { useShoppingCart } from "../context/ShoppingCartContext";
-import { CartItem } from "./CartItem";
-import storeItems from "../data/books.json";
 import { useCurrency } from "../context/CurrencyTypeContext";
+import { StoreItemProps } from "./StoreItem";
+import { Offcanvas, Stack } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { CartItem } from "./CartItem";
 
 type ShoppingCartProps = {
   isOpen: boolean;
@@ -11,6 +12,14 @@ type ShoppingCartProps = {
 export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const { closeCart, cartItems } = useShoppingCart();
   const { currencyType, multiplier } = useCurrency();
+  const [booksData, setBooks] = useState<StoreItemProps[]>([]);
+
+  useEffect(() => {
+    fetch("/api/store")
+      .then((response) => response.json())
+      .then((data) => setBooks(data));
+  }, []);
+
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
@@ -25,7 +34,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             Total{" "}
             {currencyType.format(
               cartItems.reduce((total, cartItem) => {
-                const item = storeItems.find((i) => i.id === cartItem.id);
+                const item = booksData.find((i) => i.id === cartItem.id);
                 return (
                   (total + (item?.price || 0) * cartItem.quantity) * multiplier
                 );

@@ -1,8 +1,15 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
+import router from "./routes/bookRoutes";
+
 const app: Express = express();
+const port = process.env.PORT || 3001;
 
-app.get("/", (require: Request, response: Response) => {
-  response.send("Hello World");
+// Middleware that parses json and looks at requests where the Content-Type header matches the type option.
+app.use(express.json());
+
+// Serve API requests from the router
+app.use("/api", router);
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
 });
-
-app.listen(3000, () => console.log("Listening on port 3000"));

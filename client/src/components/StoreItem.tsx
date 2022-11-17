@@ -3,31 +3,21 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useCurrency } from "../context/CurrencyTypeContext";
 import { Link } from "react-router-dom";
 
-type StoreItemProps = {
+export type StoreItemProps = {
   id: number;
   name: string;
   author: string;
   publisher: string;
-  genre: [string];
+  genre: string[];
   publication_year: number;
   price: number;
   imgUrl: string;
   pages: number;
-  description: [string];
+  description: string[];
+  rating: number;
 };
 
-export function StoreItem({
-  id,
-  name,
-  author,
-  publisher,
-  genre,
-  publication_year,
-  price,
-  imgUrl,
-  pages,
-  description,
-}: StoreItemProps) {
+export function StoreItem({ id, name, author, price, imgUrl }: StoreItemProps) {
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
   let quantity = getItemQuantity(id);
@@ -39,15 +29,6 @@ export function StoreItem({
         to="/product"
         state={{
           id,
-          name,
-          author,
-          publisher,
-          genre,
-          publication_year,
-          price,
-          imgUrl,
-          pages,
-          description,
         }}
       >
         <div className="coverImage">
