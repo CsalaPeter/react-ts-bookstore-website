@@ -1,0 +1,25 @@
+.carouselWrapper {
+  max-width: 70vw;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.carouselImg {
+  height: 300px !important;
+  max-width: 200px !important;
+}
+
+.card {
+  max-width: 200px;
+}
+
+.card-header {
+  max-width: 200px;
+  height: 65px;
+  text-align: center;
+}
+
+h2 {
+  margin-left: 300px;
+}

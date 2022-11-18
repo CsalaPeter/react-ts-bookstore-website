@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useCurrency } from "../context/CurrencyTypeContext";
 import { useShoppingCart } from "../context/ShoppingCartContext";
@@ -11,20 +11,7 @@ export function Product() {
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
   const { currencyType, multiplier } = useCurrency();
-  const [booksData, setBooks] = useState<StoreItemProps>({
-    id: 0,
-    name: "",
-    author: "",
-    publisher: "",
-    genre: [""],
-    publication_year: 0,
-    price: 0,
-    imgUrl: "",
-    pages: 0,
-    description: [""],
-    rating: 0,
-  });
-  let quantity = getItemQuantity(booksData.id);
+  const [booksData, setBooks] = useState<StoreItemProps | null>(null);
 
   useEffect(() => {
     fetch("/api/product/" + state.id)
@@ -32,46 +19,64 @@ export function Product() {
       .then((data) => setBooks(data));
   }, []);
 
-  console.log(booksData);
   return (
     <Container className="productDet">
-      <Row>
-        <Col className="left" xs lg="2">
-          <img src={booksData.imgUrl} />
-          <br />
-          {quantity === 0 ? (
-            <button
-              className="prodButton"
-              onClick={() => increaseItemQuantity(booksData.id)}
-            >
-              Add to cart
-            </button>
-          ) : (
-            <button
-              className="prodButton"
-              onClick={() => removeFromCart(booksData.id)}
-            >
-              Remove
-            </button>
-          )}
-          <BookInfo
-            author={booksData.author}
-            publisher={booksData.publisher}
-            genres={booksData.genre}
-            publication_year={booksData.publication_year}
-            pages={booksData.pages}
-          />
-        </Col>
-        <Col className="right">
-          <h3>{booksData.name}</h3>
-          <p>{currencyType.format(booksData.price * multiplier)}</p>
-          <div>
-            {booksData.description.map((description: string, key: any) => (
-              <p key={key}>{description}</p>
-            ))}
-          </div>
-        </Col>
-      </Row>
+      {booksData ? (
+        <Row>
+          <Col className="left" xs lg="2">
+            <img src={booksData.imgUrl} />
+            <br />
+            {getItemQuantity(booksData.id) === 0 ? (
+              <button
+                className="prodButton"
+                onClick={() => increaseItemQuantity(booksData.id)}
+              >
+                Add to cart
+              </button>
+            ) : (
+              <button
+                className="prodButton"
+                onClick={() => removeFromCart(booksData.id)}
+              >
+                Remove
+              </button>
+            )}
+            <BookInfo
+              author={booksData.author}
+              publisher={booksData.publisher}
+              genres={booksData.genre}
+              publication_year={booksData.publication_year}
+              pages={booksData.pages}
+            />
+          </Col>
+          <Col className="right">
+            <h3>{booksData.name}</h3>
+            <p>
+              {booksData.rating}/5{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                className="star"
+                viewBox="0 0 16 20"
+              >
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+              </svg>
+            </p>
+            <p>{currencyType.format(booksData.price * multiplier)}</p>
+            <div>
+              {booksData.description.map((description: string, key: any) => (
+                <p key={key}>{description}</p>
+              ))}
+            </div>
+          </Col>
+        </Row>
+      ) : (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      )}
     </Container>
   );
 }
