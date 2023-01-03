@@ -4,12 +4,12 @@ import { useCurrency } from "../context/CurrencyTypeContext";
 import { Link } from "react-router-dom";
 
 export type StoreItemProps = {
-  id: number;
-  name: string;
+  bookID: number;
+  bookName: string;
   author: string;
   publisher: string;
-  genre: string[];
-  publication_year: number;
+  genres: string;
+  publicationYear: number;
   price: number;
   imgUrl: string;
   pages: number;
@@ -17,10 +17,16 @@ export type StoreItemProps = {
   rating: number;
 };
 
-export function StoreItem({ id, name, author, price, imgUrl }: StoreItemProps) {
+export function StoreItem({
+  bookID,
+  bookName,
+  author,
+  price,
+  imgUrl,
+}: StoreItemProps) {
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
-  let quantity = getItemQuantity(id);
+  let quantity = getItemQuantity(bookID);
   const { currencyType, multiplier } = useCurrency();
 
   return (
@@ -28,7 +34,7 @@ export function StoreItem({ id, name, author, price, imgUrl }: StoreItemProps) {
       <Link
         to="/product"
         state={{
-          id,
+          bookID,
         }}
       >
         <div className="coverImage">
@@ -36,7 +42,7 @@ export function StoreItem({ id, name, author, price, imgUrl }: StoreItemProps) {
         </div>
       </Link>
       <div className="body">
-        <h3 className="bookName">{name}</h3>
+        <h3 className="bookName">{bookName}</h3>
         <h4 className="bookAuthor">{author}</h4>
       </div>
       <div className="footer">
@@ -44,12 +50,12 @@ export function StoreItem({ id, name, author, price, imgUrl }: StoreItemProps) {
         {quantity === 0 ? (
           <button
             className="cardButton"
-            onClick={() => increaseItemQuantity(id)}
+            onClick={() => increaseItemQuantity(bookID)}
           >
             Add to cart
           </button>
         ) : (
-          <button className="cardButton" onClick={() => removeFromCart(id)}>
+          <button className="cardButton" onClick={() => removeFromCart(bookID)}>
             Remove
           </button>
         )}

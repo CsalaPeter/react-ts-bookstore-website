@@ -34,7 +34,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             Total{" "}
             {currencyType.format(
               cartItems.reduce((total, cartItem) => {
-                const item = booksData.find((i) => i.id === cartItem.id);
+                const item = booksData.find((i) => i.bookID === cartItem.id);
                 return (
                   (total + (item?.price || 0) * cartItem.quantity) * multiplier
                 );

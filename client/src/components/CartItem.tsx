@@ -22,14 +22,14 @@ export function CartItem({ id, quantity }: CartItemProps) {
       .then((data) => setBooks(data));
   }, []);
 
-  const item = booksData.find((i) => i.id === id);
+  const item = booksData.find((i) => i.bookID === id);
   if (item == null) return null;
 
   return (
     <Stack direction="horizontal" gap={2} className="cartItem">
       <img className="cartItemImg" src={item.imgUrl} />
       <div className="me-auto">
-        <div>{item.name} </div>
+        <div>{item.bookName} </div>
         <div id="price" className="text-muted">
           {currencyType.format(item.price * multiplier)}
         </div>
@@ -47,7 +47,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
       <Button
         variant="outline-danger"
         size="sm"
-        onClick={() => removeFromCart(item.id)}
+        onClick={() => removeFromCart(item.bookID)}
       >
         &times;
       </Button>

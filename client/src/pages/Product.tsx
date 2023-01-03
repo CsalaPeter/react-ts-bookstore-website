@@ -11,48 +11,48 @@ export function Product() {
   const { getItemQuantity, increaseItemQuantity, removeFromCart } =
     useShoppingCart();
   const { currencyType, multiplier } = useCurrency();
-  const [booksData, setBooks] = useState<StoreItemProps | null>(null);
+  const [bookData, setBooks] = useState<StoreItemProps[] | null>(null);
 
   useEffect(() => {
-    fetch("/api/product/" + state.id)
+    fetch("/api/product/" + state.bookID)
       .then((response) => response.json())
       .then((data) => setBooks(data));
   }, []);
 
   return (
     <Container className="productDet">
-      {booksData ? (
+      {bookData ? (
         <Row>
           <Col className="left" xs lg="2">
-            <img src={booksData.imgUrl} />
+            <img src={bookData[0].imgUrl} />
             <br />
-            {getItemQuantity(booksData.id) === 0 ? (
+            {getItemQuantity(bookData[0].bookID) === 0 ? (
               <button
                 className="prodButton"
-                onClick={() => increaseItemQuantity(booksData.id)}
+                onClick={() => increaseItemQuantity(bookData[0].bookID)}
               >
                 Add to cart
               </button>
             ) : (
               <button
                 className="prodButton"
-                onClick={() => removeFromCart(booksData.id)}
+                onClick={() => removeFromCart(bookData[0].bookID)}
               >
                 Remove
               </button>
             )}
             <BookInfo
-              author={booksData.author}
-              publisher={booksData.publisher}
-              genres={booksData.genre}
-              publication_year={booksData.publication_year}
-              pages={booksData.pages}
+              author={bookData[0].author}
+              publisher={bookData[0].publisher}
+              genres={bookData[0].genres}
+              publicationYear={bookData[0].publicationYear}
+              pages={bookData[0].pages}
             />
           </Col>
           <Col className="right">
-            <h3>{booksData.name}</h3>
+            <h3>{bookData[0].bookName}</h3>
             <p>
-              {booksData.rating}/5{" "}
+              {bookData[0].rating}/5{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -64,11 +64,9 @@ export function Product() {
                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
               </svg>
             </p>
-            <p>{currencyType.format(booksData.price * multiplier)}</p>
+            <p>{currencyType.format(bookData[0].price * multiplier)}</p>
             <div>
-              {booksData.description.map((description: string, key: any) => (
-                <p key={key}>{description}</p>
-              ))}
+              <p>{bookData[0].description}</p>
             </div>
           </Col>
         </Row>
@@ -85,16 +83,15 @@ const BookInfo = ({
   author,
   publisher,
   genres,
-  publication_year,
+  publicationYear,
   pages,
 }: {
   author: string;
   publisher: string;
-  genres: string[];
-  publication_year: number;
+  genres: string | null;
+  publicationYear: number;
   pages: number;
 }) => {
-  let { state } = useLocation();
   return (
     <div className="info">
       <h4>Information</h4>
@@ -113,13 +110,11 @@ const BookInfo = ({
         <span>
           <b>Genre:</b>
         </span>
-        {genres.map((genres: string, key: any) => (
-          <span key={key}> {genres},</span>
-        ))}
+        <span> {genres}</span>
       </div>
       <div>
         <span>
-          <b>Publication Year:</b> {publication_year}
+          <b>Publication Year:</b> {publicationYear}
         </span>
       </div>
       <div>

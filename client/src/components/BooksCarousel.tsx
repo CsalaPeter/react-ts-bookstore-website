@@ -20,7 +20,7 @@ export function BooksCarousel() {
         {bestBooks.map((book, key) => (
           <Card key={key}>
             <CardImg className="carouselImg" src={book.imgUrl} />
-            <CardHeader>{book.name}</CardHeader>
+            <CardHeader>{book.bookName}</CardHeader>
           </Card>
         ))}
       </div>

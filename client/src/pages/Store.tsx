@@ -16,7 +16,7 @@ export function Store() {
     <>
       <div className="items">
         {booksData.map((book) => (
-          <div key={book.id}>
+          <div key={book.bookID}>
             <StoreItem {...book} />
           </div>
         ))}
