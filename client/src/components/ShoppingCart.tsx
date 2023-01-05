@@ -20,6 +20,16 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
       .then((data) => setBooks(data));
   }, []);
 
+  function placeOrder(this: any) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("api/placeOrder", requestOptions)
+      .then((response) => response.json())
+      .then(this.setState({ bookNames: "Test", totalPrice: 2300.23 }));
+  }
+
   return (
     <Offcanvas show={isOpen} onHide={closeCart} placement="end">
       <Offcanvas.Header closeButton>
@@ -41,6 +51,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
               }, 0)
             )}
           </div>
+          <button>Place Order</button>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>
