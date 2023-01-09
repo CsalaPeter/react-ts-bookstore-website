@@ -4,6 +4,7 @@ import { StoreItemProps } from "./StoreItem";
 import { Button, Stack } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import "../styles/components/cartItem.css";
+import axios from "axios";
 
 type CartItemProps = {
   id: number;
@@ -17,9 +18,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
     useShoppingCart();
 
   useEffect(() => {
-    fetch("/api/store")
-      .then((response) => response.json())
-      .then((data) => setBooks(data));
+    axios.get("api/store").then((response) => setBooks(response.data));
   }, []);
 
   const item = booksData.find((i) => i.bookID === id);

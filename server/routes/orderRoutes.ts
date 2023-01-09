@@ -1,5 +1,7 @@
 import express from "express";
 import orders from "../controllers/orders";
-const router = express.Router();
+const orderRouter = express.Router();
 
-router.get("/placeOrder", orders.placeOrder);
+orderRouter.post("/placeOrder", orders.placeOrder);
+
+export default orderRouter;

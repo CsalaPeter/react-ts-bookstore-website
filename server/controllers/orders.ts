@@ -2,12 +2,13 @@ import { Request, Response } from "express";
 import { Connect, Query } from "../configs/db.config";
 
 const placeOrder = async (request: Request, response: Response) => {
-  let bookNames = request.params;
-  let totalPrice = request.params;
+  let bookNames = request.body.bookNames;
+  let totalPrice = request.body.totalPrice;
   let orderID = Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
-  let query = `INSTER INTO bookOrders (orderID, itemsName, totalPrice) VALUE ('${orderID}', '${bookNames}', '${totalPrice}')`;
+  console.log(orderID);
+  let query = `INSERT INTO bookOrders (orderID, itemsName, totalPrice) VALUE ('${orderID}', '${bookNames}', '${totalPrice}')`;
 
   Connect()
     .then((connection) => {

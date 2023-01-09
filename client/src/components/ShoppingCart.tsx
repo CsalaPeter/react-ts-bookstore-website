@@ -3,6 +3,7 @@ import { useCurrency } from "../context/CurrencyTypeContext";
 import { StoreItemProps } from "./StoreItem";
 import { Offcanvas, Stack } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { CartItem } from "./CartItem";
 
 type ShoppingCartProps = {
@@ -13,21 +14,25 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const { closeCart, cartItems } = useShoppingCart();
   const { currencyType, multiplier } = useCurrency();
   const [booksData, setBooks] = useState<StoreItemProps[]>([]);
+  const [post, setPost] = useState(null);
+  let price: number;
 
   useEffect(() => {
-    fetch("/api/store")
-      .then((response) => response.json())
-      .then((data) => setBooks(data));
+    axios.get("api/store").then((response) => setBooks(response.data));
   }, []);
 
-  function placeOrder(this: any) {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    };
-    fetch("api/placeOrder", requestOptions)
-      .then((response) => response.json())
-      .then(this.setState({ bookNames: "Test", totalPrice: 2300.23 }));
+  function placeOrder(bookNames: string, totalPrice: number) {
+    axios
+      .post("api/placeOrder", {
+        bookNames: bookNames,
+        totalPrice: totalPrice,
+      })
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -45,13 +50,15 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
             {currencyType.format(
               cartItems.reduce((total, cartItem) => {
                 const item = booksData.find((i) => i.bookID === cartItem.id);
-                return (
-                  (total + (item?.price || 0) * cartItem.quantity) * multiplier
-                );
+                return (price =
+                  (total + (item?.price || 0) * cartItem.quantity) *
+                  multiplier);
               }, 0)
             )}
           </div>
-          <button>Place Order</button>
+          <button onClick={() => placeOrder("Test book", price)}>
+            Place Order
+          </button>
         </Stack>
       </Offcanvas.Body>
     </Offcanvas>

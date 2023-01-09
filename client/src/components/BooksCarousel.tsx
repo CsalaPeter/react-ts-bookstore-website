@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import { Card, CardImg } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import "../styles/components/carousel.css";
+import axios from "axios";
 
 export function BooksCarousel() {
   const [bestBooks, setBooks] = useState<StoreItemProps[]>([]);
 
   useEffect(() => {
-    fetch("/api/bestRated")
-      .then((response) => response.json())
-      .then((data) => setBooks(data));
+    axios.get("/api/bestRated").then((response) => setBooks(response.data));
   }, []);
 
   return (

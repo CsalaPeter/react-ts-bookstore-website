@@ -5,6 +5,7 @@ import { useShoppingCart } from "../context/ShoppingCartContext";
 import { useEffect, useState } from "react";
 import { StoreItemProps } from "../components/StoreItem";
 import "../styles/pages/product.css";
+import axios from "axios";
 
 export function Product() {
   let { state } = useLocation();
@@ -14,9 +15,9 @@ export function Product() {
   const [bookData, setBooks] = useState<StoreItemProps[] | null>(null);
 
   useEffect(() => {
-    fetch("/api/product/" + state.bookID)
-      .then((response) => response.json())
-      .then((data) => setBooks(data));
+    axios
+      .get("/api/product/" + state.bookID)
+      .then((response) => setBooks(response.data));
   }, []);
 
   return (

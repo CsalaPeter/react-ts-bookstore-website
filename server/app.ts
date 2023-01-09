@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import router from "./routes/bookRoutes";
+import orderRouter from "./routes/orderRoutes";
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
@@ -8,7 +9,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 
 // Serve API requests from the router
-app.use("/api", router);
+app.use("/api", router, orderRouter);
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
