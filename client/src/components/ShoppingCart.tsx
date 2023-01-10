@@ -16,6 +16,16 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
   const [booksData, setBooks] = useState<StoreItemProps[]>([]);
   const [post, setPost] = useState(null);
   let price: number;
+  let i: number;
+
+  function getBookNames() {
+    const booksName = [];
+    for (i = 0; i < cartItems.length; i++) {
+      booksName.push(cartItems[i].bookName);
+      console.log(booksName.join(", "));
+    }
+    return booksName.join(", ");
+  }
 
   useEffect(() => {
     axios.get("api/store").then((response) => setBooks(response.data));
@@ -56,7 +66,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
               }, 0)
             )}
           </div>
-          <button onClick={() => placeOrder("Test book", price)}>
+          <button onClick={() => placeOrder(getBookNames(), price)}>
             Place Order
           </button>
         </Stack>

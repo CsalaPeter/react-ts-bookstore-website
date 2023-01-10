@@ -32,7 +32,10 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div id="price" className="text-muted">
           {currencyType.format(item.price * multiplier)}
         </div>
-        <button onClick={() => increaseItemQuantity(id)} className="itemQuant">
+        <button
+          onClick={() => increaseItemQuantity(id, item.bookName)}
+          className="itemQuant"
+        >
           <i className="arrow up"></i>
         </button>
         <div>

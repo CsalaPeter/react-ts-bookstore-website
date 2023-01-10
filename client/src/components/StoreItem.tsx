@@ -50,7 +50,7 @@ export function StoreItem({
         {quantity === 0 ? (
           <button
             className="cardButton"
-            onClick={() => increaseItemQuantity(bookID)}
+            onClick={() => increaseItemQuantity(bookID, bookName)}
           >
             Add to cart
           </button>
